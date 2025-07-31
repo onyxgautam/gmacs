@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: quotient-helper
+# key: math-quotient-helper
+# type: command
+# --
+(og/math-frac "quotient")

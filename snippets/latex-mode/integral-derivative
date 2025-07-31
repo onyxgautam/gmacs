@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: integral-derivative
+# key: math-integral-derivative
+# --
+${1:x$(when yas-moving-away-p (if (> (length yas-text) 0) (mapconcat (lambda (x) (format "\\\\dd\{\}%s" x)) (split-string yas-text ",") " ") ""))}

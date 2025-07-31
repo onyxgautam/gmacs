@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-definition
+# key: <def
+# --
+${1:$(when (> (length (yas-field-value 1)) 0) "#+ATTR_LATEX: :options [")}$1${1:$(when (> (length (yas-field-value 1)) 0) "]\\n")}#+begin_definition
+$0
+#+end_definition

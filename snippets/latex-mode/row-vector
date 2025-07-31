@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: row-vector
+# key: math-row-vector
+# --
+\begin{bmatrix} ${1:x}_${2:1} & \cdots & $1_${2:n} \end{bmatrix}

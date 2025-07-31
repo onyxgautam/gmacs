@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: column-vector
+# key: math-column-vector
+# --
+\begin{bmatrix} ${1:x}_${2:1} \\\\ \vdots \\\\ $1_${2:n} \end{bmatrix}

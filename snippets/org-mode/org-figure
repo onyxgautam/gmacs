@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org-figure
+# key: <fig
+# --
+#+caption: $1
+#+attr_latex: :vertical-alignment ${2:b}
+[[file:img/$3]]
+$0

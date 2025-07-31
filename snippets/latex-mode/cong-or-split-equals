@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: cong-or-split-equals
+# key: math-split-equals
+# type: command
+# --
+(if (and (og/in-math-p)
+     (eq (car (org-element-context)) 'latex-environment))
+(insert "&= ")
+(insert "\\equiv{}"))

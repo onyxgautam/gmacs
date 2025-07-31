@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-problem
+# key: <p
+# --
+#+begin_problem
+$0
+#+end_problem

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: determinant
+# key: math-determinant
+# --
+\Det{$1}$0

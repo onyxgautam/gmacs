@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: partial-derivative
+# key: math-partial-derivative
+# --
+\pdv{$1}{${2:x}}$0

@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: identity-matrix
+# key: math-identity-matrix
+# type: command
+# --
+(let* ((width (read-number "Matrix width?" 3))
+      (height width)
+      (snippet-text ""))
+  (unless (string-empty-p (buffer-substring-no-properties
+                            (line-beginning-position)
+                            (line-end-position)))
+          (insert "\n"))
+  (insert "\\begin{bmatrix}\n")
+  (dotimes (i height)
+    (dotimes (j width)
+      (setq snippet-text (format "%s %s %s"
+                                 snippet-text
+                                 (if (= i j)
+                                     "1"
+                                     "")
+                                 (if (= j (1- width))
+                                     (if (= i (1- height)) "" "\\\\\\")
+                                   "&"))))
+    (setq snippet-text (format "%s\n" snippet-text)))
+  (yas/expand-snippet (format "%s\\end{bmatrix}$0" snippet-text)))

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-example
+# key: <ex
+# --
+#+begin_ex
+    $0
+#+end_ex

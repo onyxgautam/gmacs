@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: commutative-square
+# key: math-commutative-square
+# --
+\begin{tikzcd}
+${1:A} \ar[r, "$5"] \ar[d, swap, "$7"] & ${2:B} \ar[d, "$8"] \\\\
+${3:C} \ar[r, swap, "$6"]            & ${4:D}
+\end{tikzcd}

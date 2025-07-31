@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: integral
+# key: math-integral
+# --
+\int $0

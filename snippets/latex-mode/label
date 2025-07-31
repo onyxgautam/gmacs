@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: label
+# key: math-label
+# type: command
+# --
+(let ((label (read-string "Label: ")))
+     (insert (format "\\label{%s}" label))
+     (kill-new label))

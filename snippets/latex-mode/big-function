@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: big-function
+# key: bfun
+# --
+\begin{equation*}
+\begin{split}
+${1:f} : ${2:\R} &\to{}${3:\R} \\\\
+${4:x} &\mapsto{}${5:f(x)}
+\end{split}
+\end{equation*}

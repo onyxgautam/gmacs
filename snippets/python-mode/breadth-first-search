@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: bfs
+# key: tool-bfs
+# expand-env: ((yas/indent-line t))
+# --
+def bfs(graph, start):
+    """BFS (iterative) on graph from start (adj list)"""
+    visited, queue = set(), [start]
+    while queue:
+        vertex = queue.pop(0)
+        if vertex not in visited:
+            visited.add(vertex)
+            queue.extend(graph[vertex] - visited)
+    return visited

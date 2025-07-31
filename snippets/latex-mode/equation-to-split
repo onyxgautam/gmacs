@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: equation-to-split
+# key: math-equation-to-split
+# type: command
+# --
+(og/math-make-split)

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ytableau
+# key: ytab
+# --
+\begin{ytableau}
+$1
+\end{ytableau}

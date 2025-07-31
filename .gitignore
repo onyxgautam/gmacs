@@ -1,0 +1,11 @@
+/*
+!/snippets/
+!/elisp/
+!README.org
+!math-snippets.el
+!.gitmodules
+!.gitignore
+!init.el
+!gmacs.org
+/elisp/emms
+/elisp/tufte-org-mode

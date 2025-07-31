@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ointegral
+# type: command
+# --
+(yas-expand-snippet
+  (concat "\\oint_{${1:C}} $2" (og/increment-snippet-fields (yas--template-content (yas-lookup-snippet "integral-derivative")) 2)))

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-goal
+# key: <goal
+# --
+#+begin_goal
+$0
+#+end_goal

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-fullwidth
+# key: <f
+# --
+#+begin_fullwidth
+$0
+#+end_fullwidth

@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: new-problem-set
+# key: <pset
+# type: command
+# --
+(let* ((file (file-name-base))
+(num (replace-regexp-in-string "[a-z]" "" file))
+(numProblems (read-number "How many problems? "))
+(arr (split-string file num))
+(snippet-text
+(format "** TODO Problem Set ${1:1}
+:PROPERTIES:
+:EXPORT_TITLE: %s - Problem Set $1
+:EXPORT_FILE_NAME: pset$1
+:EXPORT_DATE: $2
+:ATTACH_DIR_INHERIT: t
+:END:"
+ (format "%s %s%s"
+          (upcase (nth 0 arr))
+          num
+          (upcase (nth 1 arr))))))
+(save-excursion
+(insert "\n")
+(cl-loop for i from 1 to numProblems
+do (progn (insert (format "*** TODO Problem %s" i)) (insert "\n\n")))
+(delete-char 1))
+(yas-expand-snippet snippet-text))

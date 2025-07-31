@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: outer-product
+# key: math-outer-product
+# --
+\ket{${1:\varphi\{\}}}\bra{$1}

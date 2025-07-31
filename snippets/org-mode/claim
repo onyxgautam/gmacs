@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-claim
+# key: <cl
+# --
+#+begin_claim
+$0
+#+end_claim

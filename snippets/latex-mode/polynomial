@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: polynomial
+# key: math-polynomial
+# --
+${1:a}_0 + $1_1${2:x} + $1_2$2^2 + \cdots + $1_{${3:n-1}}$2^{$3}

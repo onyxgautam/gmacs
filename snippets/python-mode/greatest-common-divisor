@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: gcd
+# key: tool-gcd
+# expand-env: ((yas/indent-line t))
+# --
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a

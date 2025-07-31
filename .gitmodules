@@ -1,0 +1,7 @@
+[submodule "elisp/emms"]
+	path = elisp/emms
+	url = git://git.sv.gnu.org/emms.git
+
+[submodule "org-tufte-latex"]
+	path = elisp/tufte-org-mode
+	url = git@github.com:gcman/tufte-org-mode.git

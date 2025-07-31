@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-fact
+# key: <fact
+# --
+#+begin_fact
+$0
+#+end_fact

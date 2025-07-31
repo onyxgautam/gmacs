@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: dashed
+# key: math-dashed
+# --
+`(if (og/math-in-commutative-diagram)
+    ", dashed"
+    "dash")`

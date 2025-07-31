@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: new-math-symbol
+# key: nsm
+# --
+("$1" (insert "\\\\$2") "${3:$2}")$0

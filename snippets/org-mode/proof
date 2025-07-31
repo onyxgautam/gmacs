@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-proof
+# key: <pf
+# --
+#+begin_proof
+$0
+#+end_proof

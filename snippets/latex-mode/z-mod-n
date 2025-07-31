@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: z-mod-n
+# key: math-z-mod-n
+# --
+\quot{\Z}{${1:p}\Z}

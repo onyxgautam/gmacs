@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: underline
+# key: math-underline
+# type: command
+# --
+(og/math-postfix "underline")

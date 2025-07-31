@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: curly-paren
+# key: math-curly-paren
+# --
+{$0}

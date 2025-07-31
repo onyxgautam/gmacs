@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: supremum
+# key: math-supremum
+# type: command
+# --
+(if (equal (og/last-n-chars 5) "\\lim ")
+(progn
+(delete-char -5)
+(insert "\\limsup "))
+(insert "\\sup "))

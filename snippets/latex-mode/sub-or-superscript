@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sub-or-superscript
+# key: math-sub-or-superscript
+# --
+${1:n$(when yas-moving-away-p (if (or (og/math-expression-p yas-text) (< (length yas-text) 2)) yas-text (concat "\{" yas-text "\}")))}

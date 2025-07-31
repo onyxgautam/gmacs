@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: bfs-sp
+# key: tool-bfs
+# expand-env: ((yas/indent-line t))
+# --
+def shortest_path(graph, start, goal):
+    try:
+        return next(bfs_paths(graph, start, goal))
+    except StopIteration:
+        return None

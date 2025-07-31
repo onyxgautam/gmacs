@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: new-latex-problem
+# key: <lp
+# --
+#+BEGIN_EXPORT latex
+\begin{problem}
+\begin{enumerate}
+\item $0
+\end{enumerate}
+\end{problem}
+#+END_EXPORT

@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: new-class
+# key: <class
+# type: command
+# --
+(let ((snippet-text
+(format "* $0
+:PROPERTIES:
+:EXPORT_FILE_NAME: %s
+:END:
+* Footnotes
+* Options :noexport:
+#+AUTHOR: Onyx Gautam
+#+OPTIONS: todo:nil toc:nil
+# Local variables:
+# eval: (add-hook 'after-save-hook 'og/org-latex-export nil t)
+# eval: (unless quick-math-mode (quick-math-mode 1))
+# og/math-local-snippets: ()
+# end:"
+(file-name-base))))
+(yas-expand-snippet snippet-text))

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: egcd
+# key: tool-egcd
+# expand-env: ((yas/indent-line t))
+# --
+def egcd(a, b):
+    """Extended Euclidean Algorithm"""
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)

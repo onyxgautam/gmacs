@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: tilde
+# key: math-tilde
+# type: command
+# --
+(og/math-postfix "tilde")

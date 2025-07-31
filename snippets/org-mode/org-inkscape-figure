@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: org-inkscape-figure
+# key: fig
+# type: command
+# --
+(og/inkscape-figure)

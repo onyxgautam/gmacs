@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: derivative
+# key: math-derivative
+# type: command
+# --
+(insert (concat (if (equal "wedge{}" (og/last-n-chars 7)) "\\!" "") "\\dd{}"))

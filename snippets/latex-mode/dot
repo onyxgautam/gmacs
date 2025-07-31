@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: dot
+# key: math-dot
+# type: command
+# --
+(og/math-postfix "dot")

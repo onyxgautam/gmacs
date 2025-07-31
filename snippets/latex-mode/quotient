@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: quotient
+# key: math-quotient
+# --
+\quot{$1}{$2}

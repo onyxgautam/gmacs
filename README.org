@@ -1,0 +1,3 @@
+* Configuring Emacs
+All my configuration files for Emacs are here. Any mess in the files is entirely
+my fault. :)

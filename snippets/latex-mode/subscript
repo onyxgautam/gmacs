@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: subscript
+# key: math-subscript
+# type: command
+# --
+(insert "_")
+(yas-expand-snippet (yas-lookup-snippet "sub-or-superscript"))

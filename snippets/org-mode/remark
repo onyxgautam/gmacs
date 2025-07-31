@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-remark
+# key: <rem
+# --
+#+begin_remark
+$0
+#+end_remark

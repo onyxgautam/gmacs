@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: attr-latex
+# key: <atr
+# --
+#+ATTR_LATEX: :options [$0]

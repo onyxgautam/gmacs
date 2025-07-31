@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: math-by
+# key: mby
+# --
+\\(${1:m}\\)-by-\\(${2:n}\\)$0

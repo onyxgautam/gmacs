@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: isomorphism
+# key: math-isomorphism
+# --
+`(if (og/math-in-commutative-diagram)
+    ", \"\\sim\""
+    "\\Iso{}")`

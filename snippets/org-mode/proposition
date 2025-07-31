@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-proposition
+# key: <prop
+# --
+#+begin_proposition
+$0
+#+end_proposition

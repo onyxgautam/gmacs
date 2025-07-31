@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: dintegral
+# --
+\int_${1:-\infty$(when yas-moving-away-p (if (or (og/math-expression-p yas-text) (< (length yas-text) 2)) yas-text (concat "\{" yas-text "\}")))}^${2:\infty$(when yas-moving-away-p (if (or (og/math-expression-p yas-text) (< (length yas-text) 2)) yas-text (concat "\{" yas-text "\}")))} $0

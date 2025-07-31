@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: commutative-triangle
+# key: math-commutative-triangle
+# --
+\begin{tikzcd}
+${1:A} \ar[r, "$5"] \ar[d, swap, "$7"] & ${2:B} \\\\
+${3:C} \ar[ur, swap, "$6"]
+\end{tikzcd}

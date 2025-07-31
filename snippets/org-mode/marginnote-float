@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: margin-note-float
+# key: <m*
+# --
+[[latex-opt:marginnote][$0;0ex]]

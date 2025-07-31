@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: new-math-snippet
+# key: nms
+# expand-env: ((yas/indent-line t))
+# --
+# -*- mode: snippet -*-
+# name: `(buffer-name)`
+# key: math-`(buffer-name)`
+# --
+$0

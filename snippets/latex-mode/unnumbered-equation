@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unnumbered-equation
+# key: ineq
+# --
+\begin{equation*}$1\end{equation*}$0

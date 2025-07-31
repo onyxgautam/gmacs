@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: surjective
+# key: math-surjectiven
+# --
+`(if (og/math-in-commutative-diagram)
+    ", two heads"
+    "\\twoheadrightarrow{}")`

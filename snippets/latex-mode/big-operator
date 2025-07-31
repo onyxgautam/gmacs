@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: big-operator
+# key: math-big-operator
+# --
+\\big`(yas/choose-value '("oplus" "otimes" "odot" "cup" "cap" "uplus" "sqcup" "vee" "wedge"))`_{$1}^{$2}$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: physics-dot
+# key: math-physics-dot
+# type: command
+# --
+(og/math-postfix "dot")

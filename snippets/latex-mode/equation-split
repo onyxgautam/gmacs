@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: equation-split
+# key: eqsp
+# type: command
+# condition: (not (eq (car (org-element-context)) 'src-block))
+# --
+(yas-expand-snippet (yas-lookup-snippet "equation"))
+(yas-expand-snippet (yas-lookup-snippet "split"))

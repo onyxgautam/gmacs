@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: modinv
+# key: tool-modinv
+# expand-env: ((yas/indent-line t))
+# --
+def inv(a, m):
+    """Modular inverse"""
+    g, x, y = egcd(a, m)
+    if g != 1:
+        return None
+    else:
+        return x % m

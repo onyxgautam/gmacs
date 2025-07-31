@@ -1,0 +1,98 @@
+# -*- mode: snippet -*-
+# name: djikstra
+# key: tool-djikstra
+# expand-env: ((yas/indent-line t))
+# --
+from heapq import heapify, heappush, heappop
+
+class priorityDictionary(dict):
+    def __init__(self, *args, **kwargs):
+        super(priority_dict, self).__init__(*args, **kwargs)
+        self._rebuild_heap()
+
+    def _rebuild_heap(self):
+        self._heap = [(v, k) for k, v in self.iteritems()]
+        heapify(self._heap)
+
+    def smallest(self):
+        """Return the item with the lowest priority.
+
+        Raises IndexError if the object is empty.
+        """
+
+        heap = self._heap
+        v, k = heap[0]
+        while k not in self or self[k] != v:
+            heappop(heap)
+            v, k = heap[0]
+        return k
+
+    def pop_smallest(self):
+        """Return the item with the lowest priority and remove it.
+
+        Raises IndexError if the object is empty.
+        """
+
+        heap = self._heap
+        v, k = heappop(heap)
+        while k not in self or self[k] != v:
+            v, k = heappop(heap)
+        del self[k]
+        return k
+
+    def __setitem__(self, key, val):
+        super(priority_dict, self).__setitem__(key, val)
+
+        if len(self._heap) < 2 * len(self):
+            heappush(self._heap, (val, key))
+        else:
+            self._rebuild_heap()
+
+    def setdefault(self, key, val):
+        if key not in self:
+            self[key] = val
+            return val
+        return self[key]
+
+    def update(self, *args, **kwargs):
+        super(priority_dict, self).update(*args, **kwargs)
+        self._rebuild_heap()
+
+    def sorted_iter(self):
+        """Sorted iterator of the priority dictionary items.
+
+        Beware: this will destroy elements as they are returned.
+        """
+
+        while self:
+            yield self.pop_smallest()
+
+def djikstra_helper(G,start,end=None):
+    D = {}    # dict of final distances
+    P = {}    # dict of predecessors
+    Q = priorityDictionary()   # est.dist. of non-final vert.
+    Q[start] = 0
+    for v in Q:
+        D[v] = Q[v]
+        if v == end: break
+        for w in G[v]:
+            vwLength = D[v] + G[v][w]
+            if w in D:
+                if vwLength < D[w]:
+                    raise ValueError, \
+  "djikstra: found better path to already-final vertex"
+            elif w not in Q or vwLength < Q[w]:
+                Q[w] = vwLength
+                P[w] = v
+
+    return (D,P)
+
+def djikstra(G,start,end):
+    D,P = djikstra_helper(G,start,end)
+    path = []
+    while 1:
+        Path.append(end)
+        if end == start: break
+        end = P[end]
+    path.reverse()
+    return path

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: correction-note
+# key: <corr
+# --
+[[corr:$0]]

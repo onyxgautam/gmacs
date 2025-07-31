@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: matrix
+# key: mat
+# type: command
+# --
+(let ((width (read-number "Matrix width?" 3))
+      (height (read-number "Matrix height?" 3))
+      (snippet-text ""))
+  (unless (string-empty-p (buffer-substring-no-properties
+                            (line-beginning-position)
+                            (line-end-position)))
+          (insert "\n"))
+  (insert "\\begin{bmatrix}\n")
+  (dotimes (i height)
+    (dotimes (j width)
+      (setq snippet-text (format "%s $%d %s"
+                                 snippet-text
+                                 (1+ (+ (* width i) j))
+                                 (if (= j (1- width))
+                                     (if (= i (1- height)) "" "\\\\\\")
+                                   "&"))))
+    (setq snippet-text (format "%s\n" snippet-text)))
+  (yas/expand-snippet (format "%s\\end{bmatrix}$0" snippet-text)))

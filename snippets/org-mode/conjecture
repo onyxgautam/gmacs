@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: new-math-conjecture
+# key: <conj
+# --
+#+begin_conjecture
+$0
+#+end_conjecture

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: widetilde
+# key: math-widetilde
+# --
+(og/math-postfix "widetilde")

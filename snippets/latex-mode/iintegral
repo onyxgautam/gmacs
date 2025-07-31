@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: iintegral
+# --
+\\iint_{${1:T}} $2

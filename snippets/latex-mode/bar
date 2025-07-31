@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: bar
+# key: math-bar
+# type: command
+# --
+(og/math-postfix "conj")
