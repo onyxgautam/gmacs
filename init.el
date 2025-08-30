@@ -28,4 +28,3 @@
 (let ((personalfile (expand-file-name "personal.el" user-emacs-directory)))
   (when (file-exists-p personalfile)
     (load-file personalfile)))
-(put 'downcase-region 'disabled nil)

@@ -1676,8 +1676,8 @@ could.
 **** PDF Viewing
 #+BEGIN_SRC emacs-lisp
 (defun og-pdf-open-external (&optional filename)
-  (require 'dired-open)
   (interactive)
+  (require 'dired-open)
   (let (close)
     (unless filename
       (setq filename (file-truename buffer-file-name))
@@ -1687,15 +1687,15 @@ could.
       (kill-buffer-and-window))))
 #+END_SRC
 #+BEGIN_SRC emacs-lisp
-(after! doc-view
-  (bind-key "O" #'og-pdf-open-external doc-view-mode-map))
+(use-package doc-view
+  :bind (:map doc-view-mode-map ("O" . #'og-pdf-open-external)))
 #+END_SRC
 Open with external viewer by default if wanted.
 #+BEGIN_SRC emacs-lisp
 (use-package openwith
   :custom (openwith-associations '(("\\.pdf\\'" "zathura" (file))
                                    ("\\.djvu\\'" "zathura" (file))
-                                   ("\\.jpeg\\'" "pqiv" ("--browse" file)))))
+                                   ("\\.\\(?:jp?g\\|png\\)\\'" "pqiv" (file)))))
 #+END_SRC
 **** Epub Reading
 We use =nov.el=. Change default reading font from Source Sans Pro (my default
@@ -4514,7 +4514,7 @@ make my own for checking if you are in math mode, which leverages Org Mode's
 font-locking to narrow down the area we need to check. We first make a list of
 math environments that our function will look for.
 #+BEGIN_SRC emacs-lisp
-(defvar og/math-environments '("equation" "align")
+(defvar og/math-environments '("equation" "align" "gather")
   "The environments `og/in-math-p' assumes as valid math environments.")
 #+END_SRC
 The only way we're in math mode is if we're in a LaTeX fragment. However, the
