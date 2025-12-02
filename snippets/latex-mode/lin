@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lin
+# key: math-lin
+# type: command
+# --
+(og/math-postfix "lin")

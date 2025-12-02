@@ -276,6 +276,9 @@ We load packages that I use throughout my configuration.
 (use-package async :commands (async-start))
 #+END_SRC
 * General Configuration
+:PROPERTIES:
+:ORDERED:  t
+:END:
 ** Macros
 Elisp macros. =after!= and =lambda!= are from the popular DOOM! Emacs
 configuration. The documentation on these will be sparse, because the docstrings
@@ -1508,6 +1511,10 @@ word.
 
 (bind-key "M-c" #'og/capitalize-word)
 #+END_SRC
+**** Remove downcase region
+#+BEGIN_SRC emacs-lisp
+(unbind-key "C-x C-l")
+#+END_SRC
 **** Expand Region
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
@@ -1695,7 +1702,7 @@ Open with external viewer by default if wanted.
 (use-package openwith
   :custom (openwith-associations '(("\\.pdf\\'" "zathura" (file))
                                    ("\\.djvu\\'" "zathura" (file))
-                                   ("\\.\\(?:jp?g\\|png\\)\\'" "pqiv" (file)))))
+                                   ("\\.\\(?:jp?g\\|png\\)\\'" "pqiv" file))))
 #+END_SRC
 **** Epub Reading
 We use =nov.el=. Change default reading font from Source Sans Pro (my default
@@ -1928,7 +1935,20 @@ data in that file in a text buffer. We want to open files with the appropriate
 application.
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref dired-settings
 (autoload 'dired-open-xdg "dired-open")
-(bind-key "O" #'dired-open-xdg dired-mode-map)
+(autoload 'og/dired-open-xdg "dired-open")
+
+(defun og/dired-open-xdg (&optional filename)
+  "Try to run `xdg-open' to open the file under point."
+  (interactive)
+  (require 'dired-open)
+  (if (executable-find "xdg-open")
+      (let ((file (if filename filename (ignore-errors (dired-get-file-for-visit)))))
+        (if (string-match (concat "jp?g\\|png" "$") (file-name-extension file))
+            (dired-open--start-process (file-truename file) "pqiv .")
+          (dired-open--start-process (file-truename file) "xdg-open")))
+    nil))
+
+(bind-key "O" #'og/dired-open-xdg dired-mode-map)
 #+END_SRC
 Condense unique subtrees like GitHub does.
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref dired-settings
@@ -2586,14 +2606,12 @@ section for the [[*Context-dependent Hydra][Context-dependent Hydra]].
   "
 _t_ theme-colour       %`og/theme
 _m_ quick-math-mode:   %`quick-math-mode
-_p_ equation-preview:  %`og/eq-preview-mode
 _e_ pretty-math:       %`pretty-math-mode
 _D_ dubcaps-mode:      %`og/dubcaps-mode
 _W_ Window management
 "
   ("t" og/switch-theme nil)
   ("m" quick-math-mode nil :color blue)
-  ("p" og/eq-preview-mode nil)
   ("e" pretty-math-mode nil)
   ("D" og/dubcaps-mode nil)
   ("W" hydra-window-mnog/body :color blue)
@@ -3673,107 +3691,25 @@ litter our folders.
 Use this instead of =org-latex-preview=.
 #+BEGIN_SRC emacs-lisp
 (require 'org-auctex)
-;; (defun og/math-preview-toggle-subtree ()
-;;   (interactive)
-;;   (save-restriction
-;;     (org-narrow-to-subtree)
-;;       (if current-prefix-arg
-;;           (math-preview--clear-region (point-min) (point-max))
-;;         (math-preview--region (point-min) (point-max)))))
+(defun og/math-preview-toggle-subtree ()
+  (interactive)
+  (save-restriction
+    (org-narrow-to-subtree)
+    (cond (current-prefix-arg (math-preview--clear-region (point-min) (point-max)))
+          ((math-preview--overlays (point) (point)) (math-preview-clear-at-point))
+          (t (math-preview-all)))))
 
-;; (use-package math-preview
-;;   :commands (math-preview-at-point math-preview--region)
-;;   :custom
-;;   (math-preview-scale 1.1)
-;;   (math-preview-margin '(0 . 0))
-;;   (math-preview-raise 0.325)
-;;   :config
-;;   (add-to-list 'math-preview-tex-marks '("\\begin{align}"  "\\end{align}"))
-;;   :bind (:map org-mode-map
-;;               ("C-c C-x C-l" . 'og/math-preview-toggle-subtree)))
-#+END_SRC
-Inspired by John Kitchin. I've modified it to be toggleable and to run a hook on
-leaving a math fragment.
-#+BEGIN_SRC emacs-lisp
-;; (defvar org-latex-fragment-last nil
-;;   "Holds last fragment/environment you were on.")
-
-;; (defun org-latex-fragment-toggle ()
-;;   "Toggle a latex fragment image "
-;;   (condition-case nil
-;;       (and (eq 'org-mode major-mode)
-;;            (let* ((begin (org-latex-fragment-in-latex-fragment-p)))
-;;              (cond
-;;               ;; were on a fragment and now on a new fragment
-;;               ;; need to replace old image and clear current image
-;;               ((and
-;;                 org-latex-fragment-last
-;;                 begin
-;;                 (not (= begin
-;;                         org-latex-fragment-last)))
-;;                (org-latex-fragment-preview-last)
-;;                (org-latex-fragment-clear begin))
-;;               ;; were on a fragment and now are not on a fragment
-;;               ;; need to replace old image
-;;               ((and (not begin) org-latex-fragment-last)
-;;                (org-latex-fragment-preview-last)
-;;                (setq org-latex-fragment-last nil))
-;;               ;; were not on a fragment and now are
-;;               ((and (not org-latex-fragment-last) begin)
-;;                (org-latex-fragment-clear begin))
-;;               ;; else not on a fragment
-;;               ((not begin)
-;;                (setq org-latex-fragment-last nil)))))
-;;     (error nil)))
-
-;; (add-hook 'post-command-hook 'org-latex-fragment-toggle)
-#+END_SRC
-We can also centre equations and (this is useful when equation preview mode is
-disabled) add a tooltip to them that lets you edit the equation when you click
-on it. This is more John Kitchin code.
-#+BEGIN_SRC emacs-lisp
-;; (defun og/org-justify-fragment-overlay (beg end image imagetype)
-;;   "Adjust the justification of a LaTeX fragment.
-;; The justification is set by :justify in
-;; `org-format-latex-options'. Only equations at the beginning of a
-;; line are justified."
-;;   (when
-;;    ;; Centered justification
-;;    (and (= beg (line-beginning-position))
-;;          (string= "\\begin"
-;;                   (buffer-substring-no-properties
-;;                    beg (+ beg 6))))
-;;     (let* ((img (create-image image 'png t))
-;;            (width (car (image-size img)))
-;;            (offset (floor (- (/ (min (window-max-chars-per-line) fill-column) 3) (/ width 3)))))
-;;       (overlay-put (ov-at) 'before-string (make-string offset ? )))))
-
-;; (defun og/org-latex-fragment-tooltip (beg end image imagetype)
-;;   "Add the fragment tooltip to the overlay and set click function to toggle it."
-;;   (overlay-put (ov-at) 'help-echo
-;;                (concat (buffer-substring beg end)
-;;                        "\nmouse-1 to toggle."))
-;;   (overlay-put (ov-at) 'local-map (let ((map (make-sparse-keymap)))
-;;                                     (define-key map [mouse-1]
-;;                                       `())
-;;                                     map)))
-
-;; (advice-add 'org--format-latex-make-overlay :after 'og/org-justify-fragment-overlay)
-;; (advice-add 'org--format-latex-make-overlay :after 'og/org-latex-fragment-tooltip)
-#+END_SRC
-Create a minor mode to preview equations. The keybinding is in [[*Toggles][a hydra]].
-#+BEGIN_SRC emacs-lisp
-(define-minor-mode og/eq-preview-mode
-  "Preview equations."
-  :init-value nil)
-
-;; (defun og/eq-toggle ()
-;;   (if og/eq-preview-mode
-;;       (progn
-;;         (add-hook 'post-command-hook 'org-latex-fragment-toggle t 'local))
-;;     (remove-hook 'post-command-hook 'org-latex-fragment-toggle 'local)))
-
-;; (add-hook 'og/eq-preview-mode-hook #'og/eq-toggle)
+(use-package math-preview
+  :commands (math-preview-at-point math-preview--region math-preview--overlays)
+  :custom
+  (math-preview-scale 1.1)
+  (math-preview-margin '(1 . 1))
+  (math-preview-raise 0.325)
+  :config
+  (add-to-list 'math-preview-tex-marks '("\\begin{align}"  "\\end{align}"))
+  (add-to-list 'math-preview-tex-marks '("\\begin{gather}"  "\\end{gather}"))
+  :bind (:map org-mode-map
+              ("C-c C-x C-l" . 'og/math-preview-toggle-subtree)))
 #+END_SRC
 *** Allow Alphabetical List
 #+BEGIN_SRC emacs-lisp
@@ -4672,7 +4608,7 @@ snippets and bind each of these to a snippet expansion command.
 
 (defun og/math-setup ()
   (load og/math-snippet-loc)
-  (setq og/math-snippets (append og/math-local-snippets og/math-global-snippets))
+  (setq og/math-snippets (append og/math-global-snippets og/math-local-snippets))
   (setq og/longest-snippet
         (cons (apply #'max
                      (cl-loop for snippet in og/math-snippets
