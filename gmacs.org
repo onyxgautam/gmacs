@@ -3172,6 +3172,7 @@ academic papers in Org Mode by Org-guru John Kitchin.
 (setq bibtex-default-files '("~/texmf/bibtex/bib/main.bib"))
 
 (defun og/update-bib-files ()
+  (interactive)
   (setq bibtex-completion-bibliography
               (delete-dups (append
                             bibtex-default-files
@@ -3677,9 +3678,9 @@ Not too small.
 #+END_SRC
 Use my custom macros.
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref org-settings
-(when og/user
-  (with-eval-after-load 'org
-    (add-to-list 'org-latex-packages-alist '("" "og-math" t))))
+;; (when og/user
+;;   (with-eval-after-load 'org
+;;     (add-to-list 'org-latex-packages-alist '("" "og-math" t))))
 #+END_SRC
 Where should it be? Let's put them all in the same place, so that common
 fragments (like =x^2=) are never generated more than once and so that we don't
@@ -3727,6 +3728,7 @@ Remove "hypersetup" at the beginning of exported document.
 #+BEGIN_SRC emacs-lisp
 (defun og/org-latex-export ()
   (interactive)
+  (og/angle-bracket-syntax)
   (save-excursion
     (while (and (not (org-entry-get (point) "EXPORT_FILE_NAME"))
                 (not (string= (buffer-substring-no-properties
@@ -3784,9 +3786,9 @@ included in every LaTeX file exported from Org Mode. The optional third argument
 makes sure this package is also loaded when compiling LaTeX image previews, such
 as equation previews.
 #+BEGIN_SRC emacs-lisp :tangle no :noweb-ref org-settings
-(when og/user
-  (setq org-latex-packages-alist
-      '(("" "og-math" t))))
+;; (when og/user
+;;   (setq org-latex-packages-alist
+;;       '(("" "og-math" t))))
 #+END_SRC
 **** Command Links
 :PROPERTIES:
@@ -3836,7 +3838,7 @@ Todo link.
  :face '(:foreground "red" :underline t)
  :export (lambda (path desc format)
            (when (eq format 'latex)
-             (format "\\marginnote{\\textcolor{red}{\\textbf{TODO:}} %s}" path))))
+             (format "\\footnote{\\textcolor{red}{\\textbf{TODO:}} %s}" path))))
 #+END_SRC
 Correction link.
 #+BEGIN_SRC emacs-lisp
@@ -4432,7 +4434,6 @@ Then we bind this to semicolon.
                   :parents (list quick-math-mode-abbrev-table)))
     (when quick-math-mode
       (og/math-setup)
-      (og/eq-preview-mode)
       (pretty-math-mode)
       (setq org-highlight-latex-and-related '(latex)))))
 #+END_SRC
